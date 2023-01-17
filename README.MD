@@ -19,6 +19,13 @@ FICHAJE_URL=https://fichaje.com
 init command:
 ```
 
-npm run neoris_check -- -a (OPEN/CLOSE) -f (true/false)
+npm run neoris_check -- -a <OPEN/CLOSE> -f <true/false>
+
+```
+
+CronJob command:
+```
+
+* * * * * ~/projects/fichaje/cronjob.sh <OPEN/CLOSE> <true/false> ~/projects/fichaje
 
 ```

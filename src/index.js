@@ -25,8 +25,18 @@ const url = process.env.FICHAJE_URL;
     process.exit(900);
   }
 
+  console.log('----- INIT NEORIS CHECKING  -----');
   const action = argv.a;
   const incident = argv.f;
+
+  console.log(`
+    User: ${user}, 
+    Password: ******,
+    Url: ${url},
+    Action: ${action},
+    Incident: ${incident}
+  `);
+
   //CREATE NAV AND OPEN PAGE
   const browser = await openConnection();
   const page = await openPage(browser,url);
@@ -37,11 +47,7 @@ const url = process.env.FICHAJE_URL;
   } else {
     await doExit(page,incident);
   }
-
+  console.log('----- CLOSING Connection -----');
   await closeConnection(browser);
+  console.log('----- FINISH NEORIS CHECKING  -----');
 })();
-
-//TEST CODE
-// const element = await page.waitForSelector('h2'); // select the element
-// const value = await element.evaluate(el => el.textContent);
-// console.log(value);
