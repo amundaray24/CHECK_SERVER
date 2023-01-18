@@ -5,7 +5,7 @@
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-FICHAJE_DATE="$(date +'%m-%d-%Y_%k.%M.%S')"
+FICHAJE_DATE="$(date +'%m-%d-%Y_%T')"
 
 cd $3
 
