@@ -23,9 +23,10 @@ npm run neoris_check -- -a <OPEN/CLOSE> -f <true/false>
 
 ```
 
+
 CronJob command:
 ```
 
-* * * * * ~/projects/fichaje/cronjob.sh <OPEN/CLOSE> <true/false> ~/projects/fichaje
+* * * * * ~/projects/fichaje/cronjob.sh <OPEN/CLOSE> <true/false> ~/projects/fichaje >> ~/projects/fichaje/logs/cronjob.log 2>&1
 
 ```
