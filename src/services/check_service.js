@@ -55,6 +55,7 @@ const _incidentClick = async (page,iframeSelector,selector) => {
 }
 
 const _clickOnSelector = async (page, selector) => {
+  console.log(`------ Click on selector : ${selector}`);
   let element = await page.waitForSelector(selector);
   await element.click();
 }
@@ -62,7 +63,7 @@ const _clickOnSelector = async (page, selector) => {
 const _validateLogin = async (page, selector) => {
   await page.waitForSelector(selector)
   .then(() => {
-    console.log(`----- _validateLogin OK -----`);
+    console.log(`----- _validateLogin OK - Selector: ${selector}-----`);
   })
   .catch(e => {
     console.log('LOGIN FAIL',e);
