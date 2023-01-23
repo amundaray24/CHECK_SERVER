@@ -18,7 +18,7 @@ const {
 const user = process.env.FICHAJE_USER;
 const password = process.env.FICHAJE_PASSWORD;
 const url = process.env.FICHAJE_URL;
-const holidays = process.env.FICHAJE_HOLIDAYS;
+const holidays = process.env.FICHAJE_HOLIDAYS || '';
 
 (async () => {
 
