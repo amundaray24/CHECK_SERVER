@@ -65,7 +65,7 @@ const _clickOnSelector = async (page, selector) => {
 const _validateLogin = async (page) => {
   await page.waitForSelector(loginSelector)
   .then(() => {
-    console.log(`----- _validateLogin OK - Selector: ${selector}-----`);
+    console.log(`----- _validateLogin OK - Selector: ${loginSelector}-----`);
   })
   .catch(e => {
     console.log('LOGIN FAIL',e);
