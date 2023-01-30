@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer');
 
+const loginSelector = 'a[href="/Login/Logout"]';
+
 const entrySelector = 'a[href="/Menu/CrearMarcaje?Type_entrada=True"]';
 const incidentEntrySelector = 'a[href="/Menu/SeleccionaIncidencia?Type_entrada=True"]';
 const incidentEntryIframeSelector='iframe[src="/Menu/SeleccionaIncidencia?Type_entrada=True"]';
@@ -33,16 +35,16 @@ const doLogin = async (page, user, password) => {
 
 const doEntry = async (page,incident) => {
   console.log(`----- INIT doEntry(page, incident: ${incident}) -----`);
+  await _validateLogin(page);
   const selector = !incident ? entrySelector : incidentEntrySelector;
-  await _validateLogin(page,selector);
   await _clickOnSelector(page,selector);
   if (incident) await _incidentClick(page,incidentEntryIframeSelector,incidentEntryFlexiworkingSelector);
 }
 
 const doExit = async (page,incident) => {
   console.log(`----- INIT doExit(page, incident: ${incident}) -----`);
+  await _validateLogin(page);
   const selector = !incident ? exitSelector : incidentExitSelector;
-  await _validateLogin(page,selector);
   await _clickOnSelector(page,selector);
   if (incident) await _incidentClick(page,incidentExitIframeSelector,incidentExitFlexiworkingSelector);
 }
@@ -60,8 +62,8 @@ const _clickOnSelector = async (page, selector) => {
   await element.click();
 }
 
-const _validateLogin = async (page, selector) => {
-  await page.waitForSelector(selector)
+const _validateLogin = async (page) => {
+  await page.waitForSelector(loginSelector)
   .then(() => {
     console.log(`----- _validateLogin OK - Selector: ${selector}-----`);
   })
