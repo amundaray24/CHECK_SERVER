@@ -8,7 +8,7 @@ const {
   FICHAJE_NOTIFICATION_LOG_ATTACHMENT
 } = process.env;
 
-const sendEmail = async (date,action,incident,valid) => {
+const sendEmail = async (date,action,incident,valid, screenshot) => {
   const {file} = await _getMostRecentFile(FICHAJE_NOTIFICATION_LOG_ATTACHMENT);
   console.log(`----- CALL SEND_EMAIL STATUS: ${valid}-----`);
   if (FICHAJE_NOTIFICATION_ENABLED === 'true') {
@@ -22,6 +22,11 @@ const sendEmail = async (date,action,incident,valid) => {
           filename: file,
           path: `${FICHAJE_NOTIFICATION_LOG_ATTACHMENT}/${file}` // stream this file
         },
+        { 
+          filename: 'evidence.jpeg',
+          content: screenshot,
+          encoding: 'base64'
+        }
       ]
     }).then(info => {
       console.log({info});

@@ -15,6 +15,7 @@ const {
   validateHolidays
 } = require('./services/holidays_service');
 const { sendEmail } = require('./services/notification_service');
+const { generatePrintScreen } = require('./services/screen_service');
 
 const user = process.env.FICHAJE_USER;
 const password = process.env.FICHAJE_PASSWORD;
@@ -58,10 +59,12 @@ const holidays = process.env.FICHAJE_HOLIDAYS || '';
         } else {
           await doExit(page,incident);
         }
+
+        const screenshot = await generatePrintScreen(page);
         console.log('----- CLOSING Connection -----');
         await closeConnection(browser);
         console.log('----- FINISH NEORIS CHECKING  -----');
-        sendEmail(new Date().toISOString(),action,incident,true);
+        sendEmail(new Date().toISOString(),action,incident,true,screenshot);
       } catch (err) {
         console.error(err);
         sendEmail(new Date().toISOString(),action,incident,false);
