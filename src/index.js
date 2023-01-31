@@ -13,7 +13,8 @@ const {
 
 const {
   validateHolidays
-} = require('./services/holidays_service')
+} = require('./services/holidays_service');
+const { sendEmail } = require('./services/notification_service');
 
 const user = process.env.FICHAJE_USER;
 const password = process.env.FICHAJE_PASSWORD;
@@ -45,20 +46,26 @@ const holidays = process.env.FICHAJE_HOLIDAYS || '';
 
   validateHolidays(holidays)
     .then(async () => {
-      console.log(`----- VALIDATION WHITOUT HOLIDAY -----`);
-      //CREATE NAV AND OPEN PAGE
-      const browser = await openConnection();
-      const page = await openPage(browser,url);
-      await doLogin(page,user,password);
-
-      if (action === 'OPEN') {
-        await doEntry(page,incident);
-      } else {
-        await doExit(page,incident);
+      try {        
+        console.log(`----- VALIDATION WHITOUT HOLIDAY -----`);
+        //CREATE NAV AND OPEN PAGE
+        const browser = await openConnection();
+        const page = await openPage(browser,url);
+        await doLogin(page,user,password);
+  
+        if (action === 'OPEN') {
+          await doEntry(page,incident);
+        } else {
+          await doExit(page,incident);
+        }
+        console.log('----- CLOSING Connection -----');
+        await closeConnection(browser);
+        console.log('----- FINISH NEORIS CHECKING  -----');
+        sendEmail(new Date().toISOString(),action,incident,true);
+      } catch (err) {
+        console.error(err);
+        sendEmail(new Date().toISOString(),action,incident,false);
       }
-      console.log('----- CLOSING Connection -----');
-      await closeConnection(browser);
-      console.log('----- FINISH NEORIS CHECKING  -----');
     })
     .catch((date) => {
       console.log(`----- HOLIDAY  ${date} -----`);
