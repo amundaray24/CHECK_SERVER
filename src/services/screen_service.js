@@ -1,8 +1,8 @@
-const loginSelector = 'a[href="/Login/Logout"]';
+const dialogSelector = 'div[role="dialog"]';
 
 const generatePrintScreen = async (page) => {
 
-  await page.waitForSelector(loginSelector);
+  await page.waitForSelector(dialogSelector);
 
   return await page.screenshot({ 
     encoding: "base64",
