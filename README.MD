@@ -12,6 +12,12 @@ must create .env file example:
 FICHAJE_USER=correo@ejemplo.com
 FICHAJE_PASSWORD=miclave123
 FICHAJE_URL=https://fichaje.com
+FICHAJE_HOLIDAYS="2023-03-09"
+FICHAJE_NOTIFICATION_EMAIL=correo@ejemplo.com
+FICHAJE_NOTIFICATION_PASSWORD=super_password
+FICHAJE_NOTIFICATION_ENABLED=true
+FICHAJE_NOTIFICATION_VERIFY=true
+FICHAJE_NOTIFICATION_LOG_ATTACHMENT=~/projects/fichaje/logs/fichaje
 
 ```
 

@@ -9,4 +9,4 @@ FICHAJE_DATE="$(date +'%m-%d-%Y_%T')"
 
 cd $3
 
-$(which npm) run neoris_check -- -a $1 -f $2 2>&1| tee logs/fichaje_$FICHAJE_DATE.log
+$(which npm) run neoris_check -- -a $1 -f $2 2>&1| tee logs/fichaje/fichaje_$FICHAJE_DATE.log

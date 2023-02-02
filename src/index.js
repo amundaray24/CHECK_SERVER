@@ -1,5 +1,6 @@
-const argv = require('./config/yargs');
 require('dotenv').config();
+
+const argv = require('./config/yargs');
 
 const {
   openConnection,
@@ -10,9 +11,16 @@ const {
   doExit
 } =  require('./services/check_service');
 
+const {
+  validateHolidays
+} = require('./services/holidays_service');
+const { sendEmail } = require('./services/notification_service');
+const { generatePrintScreen } = require('./services/screen_service');
+
 const user = process.env.FICHAJE_USER;
 const password = process.env.FICHAJE_PASSWORD;
 const url = process.env.FICHAJE_URL;
+const holidays = process.env.FICHAJE_HOLIDAYS || '';
 
 (async () => {
 
@@ -37,17 +45,32 @@ const url = process.env.FICHAJE_URL;
     Incident: ${incident}
   `);
 
-  //CREATE NAV AND OPEN PAGE
-  const browser = await openConnection();
-  const page = await openPage(browser,url);
-  await doLogin(page,user,password);
+  validateHolidays(holidays)
+    .then(async () => {
+      try {        
+        console.log(`----- VALIDATION WHITOUT HOLIDAY -----`);
+        //CREATE NAV AND OPEN PAGE
+        const browser = await openConnection();
+        const page = await openPage(browser,url);
+        await doLogin(page,user,password);
+  
+        if (action === 'OPEN') {
+          await doEntry(page,incident);
+        } else {
+          await doExit(page,incident);
+        }
 
-  if (action === 'OPEN') {
-    await doEntry(page,incident);
-  } else {
-    await doExit(page,incident);
-  }
-  console.log('----- CLOSING Connection -----');
-  await closeConnection(browser);
-  console.log('----- FINISH NEORIS CHECKING  -----');
+        const screenshot = await generatePrintScreen(page);
+        console.log('----- CLOSING Connection -----');
+        await closeConnection(browser);
+        console.log('----- FINISH NEORIS CHECKING  -----');
+        sendEmail(new Date().toISOString(),action,incident,true,screenshot);
+      } catch (err) {
+        console.error(err);
+        sendEmail(new Date().toISOString(),action,incident,false);
+      }
+    })
+    .catch((date) => {
+      console.log(`----- HOLIDAY  ${date} -----`);
+    });
 })();
