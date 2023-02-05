@@ -1,8 +1,8 @@
 # Check Time Report
 
-- author: ANGERSON JOSE AMUNDARAY RENGIFO
-- version: 2.0.0
-- type: NodeJs
+- Author: ANGERSON JOSE AMUNDARAY RENGIFO
+- Version: 2.0.0
+- Type: NodeJs
 
 IMPORTANT:
 ```
@@ -19,6 +19,22 @@ CHECK_MONGO_USER=<MONGO-DB-CHECK-USER>
 CHECK_MONGO_PASSWORD=<MONGO-DB-CHECK-PASSWORD>
 
 ```
+
+OPTIONAL:
+```
+
+you could init database by creating a file on src/config/database/mongo-init.js, Example:
+
+db.createUser(
+  {
+      user: "<MONGO-DB-CHECK-USER>",
+      pwd: "<MONGO-DB-CHECK-PASSWORD>",
+      roles: [ { role: "readWrite", db: "<MONGO-DB-DATABASE>" } ]
+  }
+)
+
+```
+
 
 init command:
 ```
