@@ -12,14 +12,14 @@ const loginSelector = 'a[href="/Login/Logout"]';
 const dialogSelector = 'div[role="dialog"]';
 
 const entrySelector = 'a[href="/Menu/CrearMarcaje?Type_entrada=True"]';
-const incidentEntrySelector = 'a[href="/Menu/SeleccionaIncidencia?Type_entrada=True"]';
-const incidentEntryIframeSelector='iframe[src="/Menu/SeleccionaIncidencia?Type_entrada=True"]';
-const incidentEntryFlexiworkingSelector = 'a[href="/Menu/CrearMarcaje?Type_entrada=True&incidencia_=1"]';
+const homeOfficeEntrySelector = 'a[href="/Menu/SeleccionaIncidencia?Type_entrada=True"]';
+const homeOfficeEntryIframeSelector='iframe[src="/Menu/SeleccionaIncidencia?Type_entrada=True"]';
+const homeOfficeEntryFlexiworkingSelector = 'a[href="/Menu/CrearMarcaje?Type_entrada=True&incidencia_=1"]';
 
 const exitSelector = 'a[href="/Menu/CrearMarcaje?Type_entrada=False"]';
-const incidentExitSelector = 'a[href="/Menu/SeleccionaIncidencia?Type_entrada=False"]';
-const incidentExitIframeSelector='iframe[src="/Menu/SeleccionaIncidencia?Type_entrada=False"]';
-const incidentExitFlexiworkingSelector = 'a[href="/Menu/CrearMarcaje?Type_entrada=False&incidencia_=1"]';
+const homeOfficeExitSelector = 'a[href="/Menu/SeleccionaIncidencia?Type_entrada=False"]';
+const homeOfficeExitIframeSelector='iframe[src="/Menu/SeleccionaIncidencia?Type_entrada=False"]';
+const homeOfficeExitFlexiworkingSelector = 'a[href="/Menu/CrearMarcaje?Type_entrada=False&incidencia_=1"]';
 
 
 export const initCheckProcess = (action) => {
@@ -120,24 +120,26 @@ const _doLogin = async (page, user, password) => {
   await _clickOnSelector(page, 'input[type="submit"]');
 }
 
-const _doEntry = async (page,incident) => {
-  logger.debug(`INIT doEntry(page, incident: ${incident})`);
+const _doEntry = async (page,isOfficeDay) => {
+  logger.debug(`INIT doEntry(page, isOfficeDay: ${isOfficeDay})`);
   await _validateLogin(page);
-  const selector = !incident ? entrySelector : incidentEntrySelector;
+  const selector = isOfficeDay ? entrySelector : homeOfficeEntrySelector;
+  logger.info(`SELECTOR: ${selector}`);
   await _clickOnSelector(page,selector);
-  if (incident) await _incidentClick(page,incidentEntryIframeSelector,incidentEntryFlexiworkingSelector);
+  if (!isOfficeDay) await _homeOfficeClick(page,homeOfficeEntryIframeSelector,homeOfficeEntryFlexiworkingSelector);
 }
 
-const _doExit = async (page,incident) => {
-  logger.debug(`INIT doExit(page, incident: ${incident})`);
+const _doExit = async (page,isOfficeDay) => {
+  logger.debug(`INIT doExit(page, isOfficeDay: ${isOfficeDay})`);
   await _validateLogin(page);
-  const selector = !incident ? exitSelector : incidentExitSelector;
+  const selector = isOfficeDay ? exitSelector : homeOfficeExitSelector;
+  logger.info(`SELECTOR: ${selector}`);
   await _clickOnSelector(page,selector);
-  if (incident) await _incidentClick(page,incidentExitIframeSelector,incidentExitFlexiworkingSelector);
+  if (!isOfficeDay) await _homeOfficeClick(page,homeOfficeExitIframeSelector,homeOfficeExitFlexiworkingSelector);
 }
 
-const _incidentClick = async (page,iframeSelector,selector) => {
-  logger.debug(`INIT _incidentClick(page, iframeSelector: ${iframeSelector}, selector: ${selector})`);
+const _homeOfficeClick = async (page,iframeSelector,selector) => {
+  logger.debug(`INIT _homeOfficeClick(page, iframeSelector: ${iframeSelector}, selector: ${selector})`);
   const elementHandle = await page.waitForSelector(iframeSelector);
   const iframe = await elementHandle.contentFrame();
   await _clickOnSelector(iframe,selector);

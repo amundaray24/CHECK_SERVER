@@ -51,7 +51,7 @@ export const sendNotification = async ( date, action, isHoliday, isOfficeDay, st
     emailClient.sendMail({
       from: email || 'email@prueba.com', 
       to: email,
-      subject: `{CHECK} ${isHoliday && status ? 'HOLIDAY!! 🚀🚀🚀🚀' : status ? ' NOTIFICATIONS!! ✅✅✅✅' : 'ERROR!! ⛔⛔⛔⛔'}`,
+      subject: `{CHECK - ${action}} ${isHoliday && status ? 'HOLIDAY!! 🚀🚀🚀🚀' : status ? ' NOTIFICATIONS!! ✅✅✅✅' : 'ERROR!! ⛔⛔⛔⛔'}`,
       html: template,
       attachments
     }).then(info => {
