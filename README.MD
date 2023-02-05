@@ -1,7 +1,7 @@
 # Check Time Report
-# fichaje
+
 - author: ANGERSON JOSE AMUNDARAY RENGIFO
-- version: 1.0.0
+- version: 2.0.0
 - type: NodeJs
 
 IMPORTANT:
@@ -9,30 +9,23 @@ IMPORTANT:
 
 must create .env file example:
 
-FICHAJE_USER=correo@ejemplo.com
-FICHAJE_PASSWORD=miclave123
-FICHAJE_URL=https://fichaje.com
-FICHAJE_HOLIDAYS="2023-03-09"
-FICHAJE_NOTIFICATION_EMAIL=correo@ejemplo.com
-FICHAJE_NOTIFICATION_PASSWORD=super_password
-FICHAJE_NOTIFICATION_ENABLED=true
-FICHAJE_NOTIFICATION_VERIFY=true
-FICHAJE_NOTIFICATION_LOG_ATTACHMENT=~/projects/fichaje/logs/fichaje
+TZ=<TIME-ZONE>
+ENV=<DEV|QA|PRD>
+CHECK_PORT=<PORT>
+CHECK_MONGO_DOMAIN=<MONGO-DB-HOST>
+CHECK_MONGO_PORT=<MONGO-DB-PORT>
+CHECK_MONGO_DATABASE=<MONGO-DB-DATABASE>
+CHECK_MONGO_USER=<MONGO-DB-CHECK-USER>
+CHECK_MONGO_PASSWORD=<MONGO-DB-CHECK-PASSWORD>
 
 ```
-
 
 init command:
 ```
+Dev:
+npm run dev
 
-npm run neoris_check -- -a <OPEN/CLOSE> -f <true/false>
-
-```
-
-
-CronJob command:
-```
-
-* * * * * ~/projects/fichaje/cronjob.sh <OPEN/CLOSE> <true/false> ~/projects/fichaje >> ~/projects/fichaje/logs/cronjob.log 2>&1
+PRD:
+npm start
 
 ```
