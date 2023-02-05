@@ -16,6 +16,8 @@ services:
       - CHECK_MONGO_PASSWORD=${CHECK_MONGO_PASSWORD}
     privileged: true
     env_file: .env
+    ports:
+      - ${CHECK_PORT}:${CHECK_PORT}
     depends_on:
       - mongodb
   mongodb:
