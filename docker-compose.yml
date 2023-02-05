@@ -1,11 +1,11 @@
 version: '3.9'
 services:
-  fichaje:
-    image: fichaje:2.0.0
+  check:
+    image: aamundaray/check:2.0.0
     build:
       context: ./
       dockerfile: Dockerfile
-    container_name: fichaje
+    container_name: check
     environment:
       - TZ=${TZ}
       - CHECK_MONGO_DOMAIN=${CHECK_MONGO_DOMAIN}
