@@ -1,11 +1,12 @@
 version: '3.9'
 services:
-  fichaje:
-    image: fichaje:2.0.0
+  check:
+    image: aamundaray/check:2.0.0
     build:
       context: ./
       dockerfile: Dockerfile
-    container_name: fichaje
+    container_name: check
+    restart: always
     environment:
       - TZ=${TZ}
       - CHECK_MONGO_DOMAIN=${CHECK_MONGO_DOMAIN}
@@ -20,6 +21,7 @@ services:
   mongodb:
     image: mongo:6.0.3
     container_name: mongodb
+    restart: always
     ports:
       - ${CHECK_MONGO_PORT}:${CHECK_MONGO_PORT}
     environment:
