@@ -9,7 +9,8 @@ import { isOfficeDay } from './office.day.controller.js';
 
 
 const loginSelector = 'a[href="/Login/Logout"]';
-const dialogSelector = 'div[role="dialog"]';
+//const dialogSelector = 'div[role="dialog"]';
+const dialogSelector = 'a[href="/Login/Logout"]';
 
 const entrySelector = 'a[href="/Menu/CrearMarcaje?Type_entrada=True"]';
 const incidentEntrySelector = 'a[href="/Menu/SeleccionaIncidencia?Type_entrada=True"]';
@@ -79,11 +80,11 @@ export const checkProcess = async (data) => {
     const page = await _openPage(browser,url);
     await _doLogin(page,user,password);
 
-    if (action === 'OPEN') {
-      await _doEntry(page,isOfficeDay);
-    } else {
-      await _doExit(page,isOfficeDay);
-    }
+    //if (action === 'OPEN') {
+    //  await _doEntry(page,isOfficeDay);
+    //} else {
+    //  await _doExit(page,isOfficeDay);
+    //}
 
     logger.info('CAPTURE SCREEN PROCESS');
     const screenshot = await _generatePrintScreen(page);
