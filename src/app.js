@@ -13,6 +13,7 @@ import officeDayRoute from './routes/office.day.route.js';
 import schedulerRoute from './routes/scheduler.route.js';
 import userRoute from './routes/user.route.js';
 import notificationRoute from './routes/notifications.route.js';
+import authenticationRoute from './routes/auth.route.js';
 
 export const eventEmitter = new EventEmitter();
 export const agenda = createAgendaConfiguration();
@@ -46,6 +47,10 @@ export class App {
       {
         path: '/notification/v1/notification',
         route: notificationRoute
+      },
+      {
+        path: '/authentication/v1/authentication',
+        route: authenticationRoute
       },
     ]
 

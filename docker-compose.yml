@@ -14,6 +14,7 @@ services:
       - CHECK_MONGO_DATABASE=${CHECK_MONGO_DATABASE}
       - CHECK_MONGO_USER=${CHECK_MONGO_USER}
       - CHECK_MONGO_PASSWORD=${CHECK_MONGO_PASSWORD}
+      - CHECK_JWT_SECRET=${CHECK_JWT_SECRET}
     privileged: true
     env_file: .env
     ports:
