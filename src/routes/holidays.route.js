@@ -4,10 +4,12 @@ import {check, body} from 'express-validator';
 import { validateFields } from '../middleware/fields.validator.middleware.js';
 import { createHoliday, deleteHoliday } from '../controllers/holidays.controller.js';
 import { validateDateVsToday } from '../middleware/times.validator.middleware.js';
+import { validateJwt } from '../middleware/jwt.validator.middleware.js';
 
 const router = Router();
 
 router.post('/',[
+  validateJwt,
   body('dates').isArray().isLength({ min: 1 }),
   body("dates.*","dates - Invalid Mandatory Parameter").isISO8601('yyyy-mm-dd'),
   validateDateVsToday,
@@ -16,6 +18,7 @@ router.post('/',[
 createHoliday);
 
 router.delete('/',[
+  validateJwt,
   check("dates","dates - Invalid Mandatory Parameter").isArray().isLength({ min: 1 }),
   validateFields
 ],
