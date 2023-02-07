@@ -24,6 +24,7 @@ export const createAuthSession = async (req = request ,res = response) => {
       if (userModel && attemptsAvailable && !passwordValid ){
         await Login.findOneAndUpdate({user},{attempts: (userModel.attempts -1) });
       }
+      logger.error(`ERROR IN LOGIN PROCESS | USER EXIST: ${userModel ? true : false} | PASSWORD VALID: ${passwordValid} | USER BLOCKED ${!attemptsAvailable}`);
       return generateResponseError(res,400,'USERS LOGIN FAILED');
     } 
     
@@ -32,6 +33,8 @@ export const createAuthSession = async (req = request ,res = response) => {
     const jwt = await _generateJwt(userModel._id);
     
     res.header('Authorization',jwt);
+
+    logger.info(`LOGGED USER: ${user}}`);
 
     res.json({
       authentication: {
