@@ -16,10 +16,10 @@ const configurationFile = format.combine(
   ...configurationBase
 );
 
-const level = process.env.ENV==='DEV' ? 'debug' : (process.env.ENV==='PRD'? 'error': 'info')
+const level = process.env.CHECK_ENV==='DEV' ? 'debug' : (process.env.CHECK_ENV==='PRD'? 'error': 'info')
 
 const transport = new transports.DailyRotateFile({
-  filename: `/usr/app/logs/CHECK_%DATE%.log`,
+  filename: `${process.env.CHECK_LOG_PATH}/CHECK_%DATE%.log`,
   datePattern: 'YYYY-MM-DD',
   maxSize: '10m',
   maxFiles: '7d',

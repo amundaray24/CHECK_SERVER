@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import EventEmitter from 'events';
+import helmet from 'helmet';
 
 import logger from './config/check.logger.config.js';
 
@@ -14,6 +15,8 @@ import schedulerRoute from './routes/scheduler.route.js';
 import userRoute from './routes/user.route.js';
 import notificationRoute from './routes/notifications.route.js';
 import authenticationRoute from './routes/auth.route.js';
+import { defaultError404, defaultError500 } from './middleware/default.errors.handler.middleware.js';
+import { checkRateLimiter } from './middleware/rate.limiter.middleware.js';
 
 export const eventEmitter = new EventEmitter();
 export const agenda = createAgendaConfiguration();
@@ -75,6 +78,10 @@ export class App {
   middleware() {
     //Cors
     this.app.use(cors());
+    //Helmet
+    this.app.use(helmet());
+    //Rate limiter
+    this.app.use(checkRateLimiter);
     //Json Parser
     this.app.use(express.json());
   }
@@ -84,6 +91,8 @@ export class App {
       this.app
       this.app.use(routeItem.path , routeItem.route);
     });
+    this.app.use(defaultError404);
+    this.app.use(defaultError500);
   }
 
   start() {

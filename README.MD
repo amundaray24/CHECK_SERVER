@@ -10,8 +10,9 @@ IMPORTANT:
 must create .env file example:
 
 TZ=<TIME-ZONE>
-ENV=<DEV|QA|PRD>
+CHECK_ENV=<DEV|QA|PRD>
 CHECK_PORT=<PORT>
+CHECK_LOG_PATH=<LOG_PATH>
 CHECK_MONGO_DOMAIN=<MONGO-DB-HOST>
 CHECK_MONGO_PORT=<MONGO-DB-PORT>
 CHECK_MONGO_DATABASE=<MONGO-DB-DATABASE>
@@ -32,7 +33,8 @@ db.createUser(
       roles: [ { role: "readWrite", db: "<MONGO-DB-DATABASE>" } ]
   }
 )
-
+db.createCollection("CHECK_LOGIN_USER")
+db.CHECK_LOGIN_USER.insert({user: '<ADMIN USER>',password: '<PASSWORD GENERATED WHIT KEY>', attempts: 3,"__v": 0})
 ```
 
 

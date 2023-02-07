@@ -36,7 +36,7 @@ export const sendNotification = async ( date, action, isHoliday, isOfficeDay, st
     let attachments = [
       {
         filename: `${action}_CHECK_${date}.log`,
-        path: `/usr/app/logs/CHECK_${date}.log`
+        path: `${process.env.CHECK_LOG_PATH}/CHECK_${date}.log`
       }
     ]
 
