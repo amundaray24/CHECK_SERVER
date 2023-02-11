@@ -15,6 +15,7 @@ import schedulerRoute from './routes/scheduler.route.js';
 import userRoute from './routes/user.route.js';
 import notificationRoute from './routes/notifications.route.js';
 import authenticationRoute from './routes/auth.route.js';
+import healthCheckRoute from './routes/healthCheck.route.js';
 import { defaultError404, defaultError500 } from './middleware/default.errors.handler.middleware.js';
 import { checkRateLimiter } from './middleware/rate.limiter.middleware.js';
 
@@ -55,6 +56,10 @@ export class App {
         path: '/authentication/v1/authentication',
         route: authenticationRoute
       },
+      {
+        path: '/health/check',
+        route: healthCheckRoute
+      }
     ]
 
     //Database Connection
