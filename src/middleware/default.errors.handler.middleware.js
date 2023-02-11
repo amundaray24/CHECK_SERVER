@@ -4,7 +4,7 @@ import { generateResponseError } from '../helpers/errors.generator.helper.js';
 
 // CUSTOM 404 ERROR HANDLER
 export const defaultError404 = (req, res) => {
-  logger.warn(`INVALID PATH REQUEST ${req.originalUrl}}`);
+  logger.warn(`INVALID PATH REQUEST ${req.originalUrl}`);
   generateResponseError(res,404,'Sorry can\'t find that!');
 }
 

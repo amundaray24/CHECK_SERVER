@@ -34,7 +34,7 @@ export const createAuthSession = async (req = request ,res = response) => {
     
     res.header('Authorization',jwt);
 
-    logger.info(`LOGGED USER: ${user}}`);
+    logger.info(`LOGGED USER: ${user}`);
 
     res.json({
       authentication: {
