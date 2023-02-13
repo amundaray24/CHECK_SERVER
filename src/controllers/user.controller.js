@@ -29,6 +29,6 @@ export const getCheckUserConfiguration = async () => {
     logger.error('USER NOT FOUND');
     throw new Error('USER NOT FOUND');
   }
-  logger.info(`USER TO CHECK { Url: ${user.url}, User: ${user.email}, Password: ****** }`);
+  logger.info(`USER TO CHECK { Url: ${user.url}, User: ${user.user}, Password: ****** }`);
   return user
 }
