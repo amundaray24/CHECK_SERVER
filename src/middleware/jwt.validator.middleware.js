@@ -23,7 +23,7 @@ export const validateJwt = (req = request, res=response, next) => {
       }
     });
   } catch (err) {
-    logger.error('INVALID AUTHORIZATION TOKEN',err);
+    logger.error(`${req.url} - INVALID AUTHORIZATION TOKEN - `,err);
     generateResponseError(res,401,'Invalid Authorization Token');    
   }
 }

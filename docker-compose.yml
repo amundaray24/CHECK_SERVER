@@ -17,16 +17,12 @@ services:
       - CHECK_JWT_SECRET=${CHECK_JWT_SECRET}
     privileged: true
     env_file: .env
-    ports:
-      - ${CHECK_PORT}:${CHECK_PORT}
     depends_on:
       - mongodb
   mongodb:
     image: mongo:6.0.3
     container_name: mongodb
     restart: always
-    ports:
-      - ${CHECK_MONGO_PORT}:${CHECK_MONGO_PORT}
     environment:
       - TZ=${TZ}
       - MONGO_INITDB_DATABASE=${CHECK_MONGO_DATABASE}
@@ -36,5 +32,19 @@ services:
     volumes:
       - mongodb:/data/db
       - ./src/config/database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+  check-proxy:
+    image: aamundaray/check-proxy:1.0.0
+    container_name: check-proxy
+    restart: always
+    build:
+      context: ./check-proxy
+      dockerfile: Dockerfile
+      args:
+        CHECK_PORT: ${CHECK_PORT}
+    env_file: .env
+    ports:
+      - 443:443
+    depends_on:
+      - check
 volumes:
   mongodb: {}
