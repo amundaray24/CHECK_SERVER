@@ -1,7 +1,7 @@
 # Check Time Report
 
 - Author: ANGERSON JOSE AMUNDARAY RENGIFO
-- Version: 2.0.0
+- Version: 2.1.0
 - Type: NodeJs
 
 IMPORTANT:
