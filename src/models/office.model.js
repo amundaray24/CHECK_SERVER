@@ -8,4 +8,9 @@ const officeSchema = new Schema({
   }
 });
 
+officeSchema.methods.toJSON = function() {
+  const { _id ,__v, ...rest} = this.toObject();
+  return Object.assign(rest);
+}
+
 export default model('CHECK_OFFICE_DAY',officeSchema,'CHECK_OFFICE_DAY');

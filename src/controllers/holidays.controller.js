@@ -4,6 +4,17 @@ import logger from '../config/check.logger.config.js';
 import Holiday from '../models/holidays.model.js';
 import {generateResponseError} from '../helpers/errors.generator.helper.js';
 
+export const getHolidays = (req = request ,res = response) => {
+  logger.info(`GET HOLIDAYS ${req.query}`);
+  Holiday.find().then((holiday) => {
+    logger.info(`HOLIDAYS: ${holiday}`);
+    res.status(200).send({data: holiday});
+  }).catch((err) => {
+    logger.error('ERROR GETTING HOLIDAYS',err);
+    generateResponseError(res,400,err);
+  });
+}
+
 export const createHoliday = (req = request ,res = response) => {
   const { dates } = req.body;
   const documents = dates.map((date) => ({date}));

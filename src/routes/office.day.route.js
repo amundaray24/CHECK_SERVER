@@ -1,11 +1,16 @@
 import { Router } from 'express';
 import {check} from 'express-validator';
 
-import { createOfficeDay, deleteOfficeDay } from '../controllers/office.day.controller.js';
+import { getOfficeDays, createOfficeDay, deleteOfficeDay } from '../controllers/office.day.controller.js';
 import { validateFields } from '../middleware/fields.validator.middleware.js';
 import { validateJwt } from '../middleware/jwt.validator.middleware.js';
 
 const router = Router();
+
+router.get('/',[
+  validateJwt,
+],
+getOfficeDays);
 
 router.post('/',[
   validateJwt,

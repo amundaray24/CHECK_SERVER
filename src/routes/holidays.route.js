@@ -2,11 +2,16 @@ import { Router } from 'express';
 import {check, body} from 'express-validator';
 
 import { validateFields } from '../middleware/fields.validator.middleware.js';
-import { createHoliday, deleteHoliday } from '../controllers/holidays.controller.js';
+import { getHolidays, createHoliday, deleteHoliday } from '../controllers/holidays.controller.js';
 import { validateDateVsToday } from '../middleware/times.validator.middleware.js';
 import { validateJwt } from '../middleware/jwt.validator.middleware.js';
 
 const router = Router();
+
+router.get('/',[
+  validateJwt,
+],
+getHolidays);
 
 router.post('/',[
   validateJwt,

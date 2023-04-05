@@ -9,15 +9,16 @@ export const createNotificationsConfiguration = (req = request ,res = response) 
   logger.info('CREATING NOTIFICATIONS');
   const {email, password, itsEnabled} = req.body;
   const notification = new NotificationModel({email, password, itsEnabled});
-  Promise.all([
-    NotificationModel.deleteMany({}),
-    notification.save()
-  ]).then((data) => {
-    const response = data[1]
-    logger.info(`NOTIFICATIONS CREATED ${response._id}`);
-    res.status(201).send(response);
-  })
-  .catch((err) => {
+  
+  NotificationModel.deleteMany({}).then(() => {
+    notification.save().then((response) => {
+      logger.info(`NOTIFICATIONS CREATED ${response._id}`);
+      res.status(201).send(response);
+    }).catch((err) => {
+      logger.error('ERROR CREATING NOTIFICATIONS',err);
+      generateResponseError(res,400,err);
+    }); 
+  }).catch((err) => {
     logger.error('ERROR CREATING NOTIFICATIONS',err);
     generateResponseError(res,400,err);
   });  

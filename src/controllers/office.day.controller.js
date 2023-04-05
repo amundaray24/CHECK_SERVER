@@ -4,6 +4,17 @@ import logger from '../config/check.logger.config.js';
 import Office from '../models/office.model.js';
 import {generateResponseError} from '../helpers/errors.generator.helper.js';
 
+export const getOfficeDays = (req = request ,res = response) => {
+  logger.info(`GET OFFICE DAY`);
+  Office.find().then((days) => {
+    logger.info(`OFFICE DAY: ${days}`);
+    res.status(200).send({data: days});
+  }).catch((err) => {
+    logger.error('ERROR GETTING OFFICE DAY',err);
+    generateResponseError(res,400,err);
+  });
+}
+
 export const createOfficeDay = (req = request ,res = response) => {
   const { dates } = req.body;
   const documents = dates.map((date) => ({date}));

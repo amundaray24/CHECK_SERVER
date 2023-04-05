@@ -8,13 +8,14 @@ export const createCheckUserConfiguration = (req = request ,res = response) => {
   logger.info('CREATING USER');
   const {user, password, url} = req.body;
   const userModel = new User({user, password, url});
-  Promise.all([
-    User.deleteMany({}),
-    userModel.save()
-  ]).then((data) => {
-    const response = data[1]
-    logger.info(`USER CREATED ${response._id}`);
-    res.status(201).send(response);
+  User.deleteMany({}).then(() => {
+    userModel.save().then((response)=> {
+      logger.info(`USER CREATED ${response._id}`);
+      res.status(201).send(response);
+    }).catch((err) => {
+      logger.error('ERROR CREATING USER',err);
+      generateResponseError(res,400,err);
+    });  
   })
   .catch((err) => {
     logger.error('ERROR CREATING USER',err);
