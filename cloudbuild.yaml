@@ -22,12 +22,12 @@ images: ['gcr.io/$PROJECT_ID/aamundaray/check-server:2.1.0']
 availableSecrets:
   secretManager:
   - versionName: projects/$PROJECT_ID/secrets/CHECK_MONGO_ROOT_USERNAME/versions/1
-    env: CHECK_MONGO_ROOT_USERNAME
+    env: 'CHECK_MONGO_ROOT_USERNAME'
   - versionName: projects/$PROJECT_ID/secrets/CHECK_MONGO_ROOT_PASSWORD/versions/1
-    env: CHECK_MONGO_ROOT_PASSWORD
+    env: 'CHECK_MONGO_ROOT_PASSWORD'
   - versionName: projects/$PROJECT_ID/secrets/CHECK_MONGO_USER/versions/1
-    env: CHECK_MONGO_USER
+    env: 'CHECK_MONGO_USER'
   - versionName: projects/$PROJECT_ID/secrets/CHECK_MONGO_PASSWORD/versions/1
-    env: CHECK_MONGO_PASSWORD
+    env: 'CHECK_MONGO_PASSWORD'
   - versionName: projects/$PROJECT_ID/secrets/CHECK_JWT_SECRET/versions/1
-    env: CHECK_JWT_SECRET
+    env: 'CHECK_JWT_SECRET'
