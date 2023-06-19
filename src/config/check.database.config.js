@@ -10,11 +10,10 @@ export const createConnection = async () => {
     CHECK_MONGO_PASSWORD,
     CHECK_MONGO_DOMAIN,
     CHECK_MONGO_DATABASE,
-    CHECK_MONGO_PORT,
   } = process.env;
 
   mongoose.set('strictQuery',true);
-  await mongoose.connect(`mongodb://${CHECK_MONGO_USER}:${CHECK_MONGO_PASSWORD}@${CHECK_MONGO_DOMAIN}:${CHECK_MONGO_PORT}/${CHECK_MONGO_DATABASE}`)
+  await mongoose.connect(`mongodb+srv://${CHECK_MONGO_USER}:${CHECK_MONGO_PASSWORD}@${CHECK_MONGO_DATABASE}.${CHECK_MONGO_DOMAIN}/?retryWrites=true&w=majority`)
   .then(() => {
     logger.info('DATABASE CONNECTED');
     eventEmitter.emit('INIT_AGENDA_SCHEDULE');
