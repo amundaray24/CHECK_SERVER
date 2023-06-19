@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   check:
-    image: aamundaray/check:2.1.0
+    image: aamundaray/check:2.2.0
     build:
       context: ./
       dockerfile: Dockerfile
@@ -10,28 +10,11 @@ services:
     environment:
       - TZ=${TZ}
       - CHECK_MONGO_DOMAIN=${CHECK_MONGO_DOMAIN}
-      - CHECK_MONGO_PORT=${CHECK_MONGO_PORT}
       - CHECK_MONGO_DATABASE=${CHECK_MONGO_DATABASE}
       - CHECK_MONGO_USER=${CHECK_MONGO_USER}
       - CHECK_MONGO_PASSWORD=${CHECK_MONGO_PASSWORD}
       - CHECK_JWT_SECRET=${CHECK_JWT_SECRET}
     privileged: true
     env_file: .env
-    depends_on:
-      - mongodb
-  mongodb:
-    image: mongo:6.0.3
-    container_name: mongodb
-    restart: always
-    environment:
-      - TZ=${TZ}
-      - MONGO_INITDB_DATABASE=${CHECK_MONGO_DATABASE}
-      - MONGO_INITDB_ROOT_USERNAME=${CHECK_MONGO_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${CHECK_MONGO_ROOT_PASSWORD}
-      - CHECK_ADMIN_PASSWORD=${CHECK_ADMIN_PASSWORD}
-    env_file: .env
-    volumes:
-      - mongodb:/data/db
-      - ./src/config/database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
 volumes:
   mongodb: {}
