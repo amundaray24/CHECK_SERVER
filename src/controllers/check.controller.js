@@ -102,7 +102,10 @@ export const checkProcess = async (data) => {
 
 const _openConnection = async () => {
   logger.debug('INIT openConnection()');
-  const browser = await puppeteer.launch({args: ['--incognito','--no-sandbox']});
+  const browser = await puppeteer.launch({
+    executablePath: '/usr/bin/google-chrome',
+    args: ['--incognito','--no-sandbox']
+  });
   return browser;
 }
 
